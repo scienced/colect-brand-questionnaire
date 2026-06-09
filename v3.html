@@ -152,8 +152,8 @@ const Q = [
      {name:'Apple', domain:'apple.com', desc:'Premium mass, product-hero'},
      {name:'Patagonia', domain:'patagonia.com', desc:'Earnest, utilitarian, values-led'}
    ]},
-  {id:'IMG', group:'Look & feel', n:12, type:'choice', required:true, other:true,
-   title:'What should our imagery mostly show?',
+  {id:'IMG', group:'Look & feel', n:12, type:'multi', required:true, max:2, other:true,
+   title:'What should our imagery mostly show?', help:'Pick up to two.',
    options:['The product — clothing & collections','The showroom & buying experience','People — designers, buyers, teams','Abstract & graphic','Data & product UI / screens']},
   {id:'ADMIRE', group:'Look & feel', n:13, type:'longtext', required:true,
    title:'If the brand looked and felt like a fashion brand you admire, which would it be — and why?', placeholder:'Brand + why…'},
@@ -217,6 +217,11 @@ function fieldHTML(q){
     if(q.why) h+=`<div class="sublabel">${q.why}</div><input class="text" id="why" placeholder="One line…">`;
     return h;
   }
+  if(q.type==='multi'){
+    let h='<div class="options">'+q.options.map((o,k)=>`<div class="opt" data-k="${k}" onclick="pickMulti('${q.id}',${k},${q.max||0})"><span class="key">${KEYS[k]}</span><span>${o}</span></div>`).join('')+'</div>';
+    if(q.other) h+=otherField();
+    return h;
+  }
   if(q.type==='chips'){
     let h='<div class="chips">'+q.options.map((o,k)=>`<div class="chip" data-k="${k}" onclick="pickMulti('${q.id}',${k},${q.max||0})">${o}</div>`).join('')+'</div>';
     if(q.other) h+=otherField();
@@ -262,7 +267,7 @@ function wire(q){
     const setv=(id,key)=>{const el=document.getElementById(id);if(el&&state[q.id+key]!=null)el.value=state[q.id+key];};
     setv('inp','_text');setv('why','_why');setv('other','_other');setv('extra','_extra');
     if(q.type==='choice'&&typeof state[q.id]==='number')document.querySelectorAll('#stage .opt').forEach(e=>e.classList.toggle('sel',+e.dataset.k===state[q.id]));
-    if((q.type==='chips'||q.type==='brands')&&Array.isArray(state[q.id]))document.querySelectorAll('#stage [data-k]').forEach(e=>e.classList.toggle('sel',state[q.id].includes(+e.dataset.k)));
+    if((q.type==='chips'||q.type==='brands'||q.type==='multi')&&Array.isArray(state[q.id]))document.querySelectorAll('#stage [data-k]').forEach(e=>e.classList.toggle('sel',state[q.id].includes(+e.dataset.k)));
     if(q.type==='scale'&&state[q.id+'_scale']!=null)document.querySelectorAll('#stage .sbtn').forEach(e=>e.classList.toggle('sel',+e.dataset.s===state[q.id+'_scale']));
     if(q.type==='axes')q.axes.forEach(a=>{const v=state[q.id+'_ax_'+a.id];if(v!=null)document.querySelectorAll(`#stage .ab[data-ax="${a.id}"]`).forEach(e=>e.classList.toggle('sel',+e.dataset.s===v));});
   }
@@ -275,7 +280,7 @@ function buildPayload(){
   Q.forEach(q=>{if(!q.id)return;const e={id:q.id,n:q.n,group:q.group,question:q.title};
     if(q.type==='longtext'||q.type==='shorttext'){e.answer=state[q.id+'_text']||'';}
     else if(q.type==='choice'){const k=state[q.id];e.answer=(typeof k==='number')?q.options[k]:null;if(state[q.id+'_other'])e.other=state[q.id+'_other'];if(state[q.id+'_why'])e.why=state[q.id+'_why'];}
-    else if(q.type==='chips'){const a=Array.isArray(state[q.id])?state[q.id]:[];e.answer=a.map(k=>q.options[k]);if(state[q.id+'_other'])e.other=state[q.id+'_other'];}
+    else if(q.type==='chips'||q.type==='multi'){const a=Array.isArray(state[q.id])?state[q.id]:[];e.answer=a.map(k=>q.options[k]);if(state[q.id+'_other'])e.other=state[q.id+'_other'];}
     else if(q.type==='brands'){const a=Array.isArray(state[q.id])?state[q.id]:[];e.answer=a.map(k=>q.brands[k].name);if(state[q.id+'_other'])e.other=state[q.id+'_other'];}
     else if(q.type==='scale'){e.answer=state[q.id+'_scale']||null;if(state[q.id+'_extra'])e.note=state[q.id+'_extra'];}
     else if(q.type==='axes'){e.answer=q.axes.map(a=>({axis:a.left+' ↔ '+a.right,value:state[q.id+'_ax_'+a.id]||null}));}
@@ -299,7 +304,7 @@ document.getElementById('prev').onclick=()=>go(-1);
 document.addEventListener('keydown',e=>{const q=Q[i];const inField=['INPUT','TEXTAREA'].includes((document.activeElement||{}).tagName);
   if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();next();return;}
   if(!inField&&q&&q.type==='choice'&&/^[a-zA-Z]$/.test(e.key)){const k=KEYS.indexOf(e.key.toUpperCase());if(k<q.options.length)pick(q.id,k);}
-  if(!inField&&q&&(q.type==='chips'||q.type==='brands')&&/^[a-zA-Z]$/.test(e.key)){const k=KEYS.indexOf(e.key.toUpperCase());const len=(q.options||q.brands).length;if(k<len)pickMulti(q.id,k,q.max||0);}
+  if(!inField&&q&&(q.type==='chips'||q.type==='brands'||q.type==='multi')&&/^[a-zA-Z]$/.test(e.key)){const k=KEYS.indexOf(e.key.toUpperCase());const len=(q.options||q.brands).length;if(k<len)pickMulti(q.id,k,q.max||0);}
   if(!inField&&q&&q.type==='scale'&&/^[1-9]$/.test(e.key)){const s=+e.key;if(s<=(q.scaleMax||5))pickScale(q.id,s);}
   if(!inField&&e.key==='ArrowDown'){e.preventDefault();go(1);}if(!inField&&e.key==='ArrowUp'){e.preventDefault();go(-1);}
 });
