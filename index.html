@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colect × Le New Black — Branding Questionnaire</title>
+<style>
+  :root{
+    --charcoal:#212322; --canvas:#F1F2F3; --coral:#EE536B; --coral-dark:#d8405a;
+    --muted:#6b6d6c; --line:#d7d8d9; --white:#fff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--charcoal); background:var(--canvas);
+    -webkit-font-smoothing:antialiased; overflow-y:auto;
+  }
+  /* progress */
+  #progress{position:fixed;top:0;left:0;height:5px;width:0;background:var(--coral);transition:width .4s ease;z-index:50}
+  #brand{position:fixed;top:18px;left:24px;font-weight:800;letter-spacing:.5px;font-size:15px;z-index:40}
+  #brand span{color:var(--coral)}
+  #counter{position:fixed;top:18px;right:24px;font-size:13px;color:var(--muted);z-index:40}
+
+  #stage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:72px 24px 96px}
+  .screen{width:100%;max-width:740px;opacity:0;transform:translateY(18px);transition:opacity .4s ease,transform .4s ease}
+  .screen.in{opacity:1;transform:none}
+
+  .group{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--coral);margin-bottom:18px}
+  .group .num{color:var(--coral)}
+  .qhead{display:flex;gap:14px;align-items:flex-start}
+  .qnum{color:var(--coral);font-weight:700;font-size:24px;line-height:1.4;display:flex;align-items:center;gap:4px;white-space:nowrap}
+  .qnum svg{width:16px;height:16px}
+  h1.q{font-size:30px;line-height:1.32;font-weight:600;letter-spacing:-.2px}
+  .help{color:var(--muted);font-size:17px;margin-top:12px;line-height:1.5;font-weight:400}
+  .quote{border-left:3px solid var(--coral);padding:10px 0 10px 18px;margin:18px 0 4px;font-style:italic;color:#3a3c3b;font-size:18px;line-height:1.5}
+  .body{margin-top:26px}
+
+  textarea,input.text{
+    width:100%;font-family:inherit;font-size:22px;color:var(--charcoal);
+    background:transparent;border:none;border-bottom:2px solid var(--line);
+    padding:10px 2px;resize:none;outline:none;transition:border-color .2s;
+  }
+  textarea{min-height:64px}
+  textarea:focus,input.text:focus{border-color:var(--coral)}
+  textarea::placeholder,input.text::placeholder{color:#aeb0af}
+  .sublabel{font-size:15px;font-weight:600;color:var(--muted);margin:22px 0 4px}
+
+  .options{display:flex;flex-direction:column;gap:12px}
+  .opt{display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);border-radius:10px;
+    padding:14px 16px;cursor:pointer;background:rgba(255,255,255,.45);transition:.15s;font-size:18px}
+  .opt:hover{border-color:var(--coral);background:rgba(238,83,107,.05)}
+  .opt.sel{border-color:var(--coral);background:rgba(238,83,107,.12)}
+  .key{width:28px;height:28px;flex:none;border:1.5px solid var(--charcoal);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .opt.sel .key{background:var(--coral);border-color:var(--coral);color:#fff}
+
+  /* ranking */
+  .rank{display:flex;flex-direction:column;gap:10px}
+  .ritem{display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);border-radius:10px;
+    padding:12px 14px;background:rgba(255,255,255,.55);font-size:18px}
+  .rbadge{width:30px;height:30px;flex:none;border-radius:50%;background:var(--coral);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+  .rlabel{flex:1}
+  .rctrl{display:flex;flex-direction:column;gap:2px}
+  .rctrl button{border:none;background:transparent;cursor:pointer;color:var(--muted);font-size:16px;line-height:1;padding:2px 6px;border-radius:4px}
+  .rctrl button:hover{color:var(--coral);background:rgba(238,83,107,.1)}
+
+  /* scale */
+  .scale{display:flex;gap:10px;flex-wrap:wrap}
+  .scale .sbtn{width:56px;height:56px;border:1.5px solid var(--line);border-radius:10px;background:rgba(255,255,255,.5);
+    font-size:20px;font-weight:700;cursor:pointer;transition:.15s}
+  .scale .sbtn:hover{border-color:var(--coral)}
+  .scale .sbtn.sel{background:var(--coral);border-color:var(--coral);color:#fff}
+  .scale-ends{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:8px;max-width:430px}
+
+  .yesno{display:flex;gap:14px}
+  .yesno .opt{flex:1;justify-content:center;font-weight:600}
+
+  /* footer / nav */
+  .foot{margin-top:34px;display:flex;align-items:center;gap:16px}
+  .ok{background:var(--coral);color:#fff;border:none;border-radius:8px;padding:13px 26px;font-size:18px;
+    font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 2px 0 var(--coral-dark);transition:.15s}
+  .ok:hover{filter:brightness(1.05)}
+  .enter-hint{font-size:13px;color:var(--muted)}
+  .enter-hint b{color:var(--charcoal)}
+  .req{color:var(--coral);font-weight:700}
+
+  /* welcome / end */
+  .center{text-align:left}
+  .big{font-size:42px;font-weight:700;line-height:1.18;letter-spacing:-.5px}
+  .lead{font-size:19px;color:var(--muted);margin-top:18px;line-height:1.55}
+  .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--coral);margin-bottom:22px}
+
+  /* bottom-right arrows */
+  #nav{position:fixed;right:24px;bottom:24px;display:flex;gap:1px;z-index:40}
+  #nav button{width:42px;height:38px;border:none;background:var(--charcoal);color:#fff;cursor:pointer;font-size:16px}
+  #nav button:first-child{border-radius:6px 0 0 6px}
+  #nav button:last-child{border-radius:0 6px 6px 0}
+  #nav button:disabled{opacity:.35;cursor:default}
+  .divider-note{font-size:14px;color:var(--muted);margin-top:10px}
+  @media(max-width:560px){h1.q{font-size:24px}.big{font-size:32px}.qnum{font-size:20px}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="brand">COLECT<span>.</span> × LE NEW BLACK</div>
+<div id="counter"></div>
+<div id="stage"></div>
+<div id="nav">
+  <button id="prev" title="Previous">↑</button>
+  <button id="next" title="Next">↓</button>
+</div>
+
+<script>
+const Q = [
+  {type:'welcome'},
+
+  // ---- Intro ----
+  {id:'NAME', group:'About you', n:1, type:'shorttext', required:true,
+   title:'What is your name?', placeholder:'Type your name…'},
+
+  // ---- Group 1: Positioning & strategy ----
+  {id:'P1', group:'Positioning & strategy', n:2, type:'choice', required:true, other:true,
+   title:'Which statement best captures the purpose of the merged company?',
+   help:'Pick the one closest to how you’d put it — or write your own under “Other”.',
+   options:[
+     'To make fashion wholesale effortless, modern and intelligent',
+     'To help fashion brands get more out of their wholesale channel — sell more, more efficiently',
+     'To be the commercial platform European fashion specialists rely on to grow',
+     'To connect brands and their retailers in one smart, end-to-end workflow'
+   ]},
+  {id:'P2', group:'Positioning & strategy', n:3, type:'multi', required:true, max:3, other:true,
+   title:'What is the single biggest problem we solve for our best customers?',
+   help:'Pick up to three.',
+   options:[
+     'Not getting the full potential out of the wholesale channel — selling more, bigger orders, more efficiently',
+     'Fragmented tools & systems — no single, centralised workflow',
+     'Slow, manual & outdated processes',
+     'High cost of sales / expensive sales operations',
+     'Reaching and winning new retailers & markets',
+     'Difficulty scaling across markets & currencies'
+   ]},
+  {id:'P3', group:'Positioning & strategy', n:4, type:'multi', required:true, max:3, other:true,
+   title:'What can we credibly claim that competitors can’t?',
+   help:'“Unlike other wholesale platforms, we ___.” Pick up to three.',
+   options:[
+     'AI-powered selling & intelligence',
+     'Fashion-native — built by fashion people, for fashion',
+     'Operationally deep — we handle complexity others can’t',
+     'Built for wholesale logic, end-to-end (pre-order → reorder → B2B e-com)',
+     'Consumer-grade (B2C-like) UI/UX — genuinely easy to use',
+     'Visual storytelling & digital showroom',
+     'Advanced business logic (multi-currency, complex pricing & terms)',
+     'Customisable & co-developed with our customers',
+     'European — built for the European fashion market',
+     'High-touch service & partnership'
+   ]},
+  {id:'P5', group:'Positioning & strategy', n:5, type:'choice', required:true,
+   title:'Would you rather have 100 customers at €100K average ARR, or 1,000 customers at €10K average ARR?',
+   options:['100 customers at €100K average ARR','1,000 customers at €10K average ARR'],
+   why:'In one line — why?'},
+  {id:'P7', group:'Positioning & strategy', n:6, type:'longtext', required:true,
+   title:'What should we deliberately NOT do or be, even if it costs us deals?',
+   help:'Where should we say no?',
+   placeholder:'Type your answer here…'},
+
+  // ---- Group 2: Values & vision ----
+  {id:'V2', group:'Values & vision', n:7, type:'multi', required:true, other:true,
+   title:'Which behaviours or beliefs define how we actually work — and should survive the merger?',
+   help:'Select all that apply.',
+   options:[
+     'Sustainability','Customer satisfaction / customer-obsession','Sales-led','Product-led',
+     'Fashion-native craft & taste','Innovation & experimentation','Transparency & honesty',
+     'Collaboration & teamwork','Ownership & accountability','Speed & pragmatism',
+     'Long-term partnership over quick wins'
+   ]},
+  {id:'V3', group:'Values & vision', n:8, type:'scale', required:true, scaleMax:5,
+   title:'How strongly do you agree this is who we are?',
+   quote:'“The future of wholesale is intelligent & AI-focused. We’re building the commercial layer where European fashion specialists and their retailers connect, scale, and grow — so the human work of fashion can be more human, and the operational work can take care of itself.”',
+   ends:['1 — not us at all','5 — exactly who we are'],
+   extra:'What would you change — add, cut, or reword?'},
+
+  // ---- Group 3: Perception & identity ----
+  {id:'N2a', group:'Perception & identity', n:9, type:'choice', required:true, other:true,
+   title:'What does the Colect brand mean to you today?',
+   options:[
+     'Enterprise / management wholesale software',
+     'A fashion-forward platform',
+     'A trusted specialist for fashion wholesale',
+     'A modern, AI-driven tool',
+     'Not much / no clear meaning yet',
+     '“Just another SaaS / AI” tool'
+   ]},
+  {id:'N2b', group:'Perception & identity', n:10, type:'multi', required:true, max:3, other:true,
+   title:'How do you want customers and prospects to perceive us?',
+   help:'Pick up to three.',
+   options:[
+     'Trustworthy & reliable','Stable & established','Innovative — the new kid on the block',
+     'Fashion-forward','Premium / high-end','Expert specialist in fashion wholesale',
+     'Easy & enjoyable to work with','Bold & category-defining','European with global reach'
+   ]},
+  {id:'PERS', group:'Perception & identity', n:11, type:'choice', required:true, other:true,
+   title:'If the merged brand were a person, who would they be?',
+   options:[
+     'The reliable expert you trust','The creative visionary','The ambitious challenger',
+     'The calm, dependable partner','The effortlessly stylish insider','The pragmatic problem-solver'
+   ]},
+  {id:'N3', group:'Perception & identity', n:12, type:'longtext', required:true,
+   title:'If the brand looked and felt like a fashion brand you admire, which would it be — and why?',
+   placeholder:'Brand + why…'},
+  {id:'VIS', group:'Perception & identity', n:13, type:'multi', required:true, max:2, other:true,
+   title:'Which visual direction should the new brand lean into?',
+   help:'Pick up to two.',
+   options:[
+     'Minimal & monochrome (black, white, lots of space)',
+     'Clean & functional (modern, practical SaaS)',
+     'Bold & energetic (colour, gradients, movement)',
+     'Editorial & fashion-led (looks like a fashion brand)',
+     'Premium & understated (quiet luxury)',
+     'Warm & human (approachable, friendly)'
+   ]},
+  {id:'REL', group:'Perception & identity', n:14, type:'multi', required:true, other:true,
+   title:'Where is our customer-relationship model strongest today (Colect and/or Le New Black)?',
+   help:'Select all that apply — then tell us where it must improve.',
+   options:[
+     'Support','Dedicated implementation','Customer success','Account management',
+     'Product & PM access','SI & reseller partners'
+   ],
+   whyLong:'Where must the customer relationship improve in the future?'},
+
+  // ---- Group 4: Open ----
+  {id:'O4', group:'Open', n:15, type:'longtext', required:false,
+   title:'Is there anything else you would like to add?',
+   placeholder:'Type your answer here…'},
+
+  {type:'end'}
+];
+
+const KEYS='ABCDEFGHIJ';
+const stage=document.getElementById('stage');
+const prog=document.getElementById('progress');
+const counter=document.getElementById('counter');
+const state={}; let i=0; let submitted=false;
+const coreCount=Q.filter(q=>typeof q.n==='number').length;
+// Test-only: writes straight to Neon from the browser (security intentionally ignored for a 1-week pilot).
+const CONN='postgresql://neondb_owner:npg_C0LhoRIGUc4n@ep-odd-union-a2gu0i5p-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
+
+function svgArrow(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';}
+
+function render(){
+  const q=Q[i];
+  prog.style.width=(i/(Q.length-1)*100)+'%';
+  counter.textContent = typeof q.n==='number' ? (q.n+' / '+coreCount) : '';
+  document.getElementById('prev').disabled=(i===0);
+  document.getElementById('next').disabled=(i===Q.length-1);
+
+  let html='<div class="screen">';
+  if(q.type==='welcome'){
+    html+=`<div class="center">
+      <div class="tag">Branding questionnaire</div>
+      <div class="big">Let’s shape the brand<br>of the merged company.</div>
+      <div class="lead">14 questions · about 7–9 minutes.<br>There are no wrong answers — we want your honest read on positioning, how we’re perceived, and what we stand for.</div>
+      <div class="foot"><button class="ok" onclick="go(1)">Start &nbsp;→</button><span class="enter-hint">press <b>Enter ↵</b></span></div>
+    </div>`;
+  } else if(q.type==='end'){
+    html+=`<div class="center">
+      <div class="big">That’s it — thank you. 🎉</div>
+      <div class="lead">Your input goes straight into the brand &amp; positioning work.</div>
+      <div class="lead" id="savestatus" style="color:var(--coral);font-weight:600">Saving your answers…</div>
+      <div class="foot"><button class="ok" onclick="go(-i)">↺ &nbsp;Start over</button></div>
+    </div>`;
+  } else if(q.type==='divider'){
+    html+=`<div class="center">
+      <div class="tag">Almost done</div>
+      <div class="big">${q.title}</div>
+      <div class="divider-note">${q.note}</div>
+      <div class="foot"><button class="ok" onclick="next()">Continue &nbsp;→</button><span class="enter-hint">press <b>Enter ↵</b></span></div>
+    </div>`;
+  } else {
+    html+=`<div class="group"><span class="num">${q.group}</span></div>
+      <div class="qhead">
+        <div class="qnum">${q.n}${svgArrow()}</div>
+        <div style="flex:1">
+          <h1 class="q">${q.title} ${q.required?'<span class="req">*</span>':''}</h1>
+          ${q.quote?`<div class="quote">${q.quote}</div>`:''}
+          ${q.help?`<div class="help">${q.help}</div>`:''}
+        </div>
+      </div>
+      <div class="body">${fieldHTML(q)}</div>
+      <div class="foot"><button class="ok" onclick="next()">OK &nbsp;✓</button><span class="enter-hint">press <b>Enter ↵</b></span></div>`;
+  }
+  html+='</div>';
+  stage.innerHTML=html;
+  requestAnimationFrame(()=>{document.querySelector('.screen').classList.add('in'); wire(q);});
+}
+
+function otherField(){return `<div class="sublabel">Other</div><input class="text" id="other" placeholder="Something else…">`;}
+
+function fieldHTML(q){
+  if(q.type==='longtext') return `<textarea id="inp" placeholder="${q.placeholder||''}"></textarea>`;
+  if(q.type==='shorttext') return `<input class="text" id="inp" placeholder="${q.placeholder||''}">`;
+  if(q.type==='twopart') return q.parts.map((p,k)=>
+    `<div class="sublabel">${p.label}</div><textarea data-k="${k}" placeholder="${p.placeholder||''}"></textarea>`).join('');
+  if(q.type==='choice'){
+    let h='<div class="options">'+q.options.map((o,k)=>
+      `<div class="opt" data-k="${k}" onclick="pick('${q.id}',${k})"><span class="key">${KEYS[k]}</span><span>${o}</span></div>`).join('')+'</div>';
+    if(q.other) h+=otherField();
+    if(q.why) h+=`<div class="sublabel">${q.why}</div><input class="text" id="why" placeholder="One line…">`;
+    return h;
+  }
+  if(q.type==='multi'){
+    let h='<div class="options">'+q.options.map((o,k)=>
+      `<div class="opt" data-k="${k}" onclick="pickMulti('${q.id}',${k},${q.max||0})"><span class="key">${KEYS[k]}</span><span>${o}</span></div>`).join('')+'</div>';
+    if(q.other) h+=otherField();
+    if(q.whyLong) h+=`<div class="sublabel">${q.whyLong}</div><textarea id="whyLong" placeholder="Type your answer here…"></textarea>`;
+    return h;
+  }
+  if(q.type==='yesno'){
+    return `<div class="yesno">
+      <div class="opt" data-k="0" onclick="pick('${q.id}',0)"><span class="key">Y</span><span>Yes</span></div>
+      <div class="opt" data-k="1" onclick="pick('${q.id}',1)"><span class="key">N</span><span>No</span></div></div>`;
+  }
+  if(q.type==='scale'){
+    const max=q.scaleMax||5; let b='';
+    for(let s=1;s<=max;s++) b+=`<button class="sbtn" data-s="${s}" onclick="pickScale('${q.id}',${s})">${s}</button>`;
+    let h=`<div class="scale">${b}</div>`;
+    if(q.ends) h+=`<div class="scale-ends" style="width:${max*66}px"><span>${q.ends[0]}</span><span>${q.ends[1]}</span></div>`;
+    if(q.extra) h+=`<div class="sublabel">${q.extra}</div><textarea id="extra" placeholder="Type your answer here…"></textarea>`;
+    return h;
+  }
+  if(q.type==='ranking'){
+    if(!state[q.id]) state[q.id]=q.items.map((_,k)=>k);
+    let h=`<div class="rank" id="rank"></div>`;
+    if(q.why) h+=`<div class="sublabel">${q.why}</div><input class="text" id="why" placeholder="One line…">`;
+    return h;
+  }
+  return '';
+}
+
+function renderRank(q){
+  const wrap=document.getElementById('rank'); if(!wrap)return;
+  wrap.innerHTML=state[q.id].map((idx,pos)=>
+    `<div class="ritem"><span class="rbadge">${pos+1}</span><span class="rlabel">${q.items[idx]}</span>
+      <span class="rctrl"><button onclick="move('${q.id}',${pos},-1)">▲</button><button onclick="move('${q.id}',${pos},1)">▼</button></span></div>`
+  ).join('');
+}
+function move(id,pos,d){
+  const a=state[id]; const t=pos+d; if(t<0||t>=a.length)return;
+  [a[pos],a[t]]=[a[t],a[pos]];
+  const q=Q.find(x=>x.id===id); renderRank(q);
+}
+function pick(id,k){state[id]=k;document.querySelectorAll('#stage .opt').forEach(e=>e.classList.toggle('sel',+e.dataset.k===k));}
+function pickMulti(id,k,max){
+  if(!Array.isArray(state[id])) state[id]=[];
+  const a=state[id]; const idx=a.indexOf(k);
+  if(idx>=0) a.splice(idx,1);
+  else { if(max && a.length>=max) return; a.push(k); }
+  document.querySelectorAll('#stage .opt').forEach(e=>e.classList.toggle('sel', a.includes(+e.dataset.k)));
+}
+function pickScale(id,s){state[id+'_scale']=s;document.querySelectorAll('#stage .sbtn').forEach(e=>e.classList.toggle('sel',+e.dataset.s===s));}
+
+function wire(q){
+  if(q.type==='ranking') renderRank(q);
+  if(q && q.id){
+    const setv=(elId,key)=>{const el=document.getElementById(elId); if(el && state[q.id+key]!=null) el.value=state[q.id+key];};
+    setv('inp','_text'); setv('why','_why'); setv('whyLong','_whyLong'); setv('other','_other'); setv('extra','_extra');
+    if(q.type==='choice' && typeof state[q.id]==='number') document.querySelectorAll('#stage .opt').forEach(e=>e.classList.toggle('sel',+e.dataset.k===state[q.id]));
+    if(q.type==='multi' && Array.isArray(state[q.id])) document.querySelectorAll('#stage .opt').forEach(e=>e.classList.toggle('sel',state[q.id].includes(+e.dataset.k)));
+    if(q.type==='scale' && state[q.id+'_scale']!=null) document.querySelectorAll('#stage .sbtn').forEach(e=>e.classList.toggle('sel',+e.dataset.s===state[q.id+'_scale']));
+  }
+  const inp=document.getElementById('inp'); if(inp) inp.focus();
+}
+
+// Read the current screen's text inputs into state so nothing is lost on navigation.
+function captureCurrent(){
+  const q=Q[i]; if(!q||!q.id) return;
+  const grab=(elId,key)=>{const el=document.getElementById(elId); if(el) state[q.id+key]=el.value;};
+  grab('inp','_text'); grab('why','_why'); grab('whyLong','_whyLong'); grab('other','_other'); grab('extra','_extra');
+}
+
+function buildPayload(){
+  const answers=[];
+  Q.forEach(q=>{
+    if(!q.id) return;
+    const e={ id:q.id, n:q.n, group:q.group, question:q.title };
+    if(q.type==='longtext'||q.type==='shorttext'){ e.answer=state[q.id+'_text']||''; }
+    else if(q.type==='choice'){ const k=state[q.id]; e.answer=(typeof k==='number')?q.options[k]:null; if(state[q.id+'_other']) e.other=state[q.id+'_other']; if(state[q.id+'_why']) e.why=state[q.id+'_why']; }
+    else if(q.type==='multi'){ const a=Array.isArray(state[q.id])?state[q.id]:[]; e.answer=a.map(k=>q.options[k]); if(state[q.id+'_other']) e.other=state[q.id+'_other']; if(state[q.id+'_whyLong']) e.improve=state[q.id+'_whyLong']; }
+    else if(q.type==='scale'){ e.answer=state[q.id+'_scale']||null; if(state[q.id+'_extra']) e.change=state[q.id+'_extra']; }
+    answers.push(e);
+  });
+  return { name: state['NAME_text']||'', answers, state: {...state}, submitted_at:new Date().toISOString() };
+}
+
+// ---- identity + backend (no login: a per-device id in localStorage) --------
+function getRID(){
+  let r=null; try{ r=localStorage.getItem('colect_rid'); }catch(e){}
+  if(!r){ r=(self.crypto&&crypto.randomUUID)?crypto.randomUUID():('r-'+Date.now()+'-'+Math.floor(Math.random()*1e9)); try{ localStorage.setItem('colect_rid', r); }catch(e){} }
+  return r;
+}
+let _sql=null;
+async function getSql(){ if(!_sql){ const { neon }=await import('https://esm.sh/@neondatabase/serverless'); _sql=neon(CONN); } return _sql; }
+
+// On load: pull this device's saved answers (if any) and pre-fill everything.
+async function loadProgress(){
+  try{
+    const sql=await getSql();
+    const rows=await sql`SELECT data FROM responses WHERE respondent_id=${getRID()} LIMIT 1`;
+    if(rows.length && rows[0].data && rows[0].data.state){ Object.assign(state, rows[0].data.state); return true; }
+  }catch(e){ console.warn('load failed:', e); }
+  return false;
+}
+
+// Save (upsert) on every step, so half-finished progress is kept and edits update the same row.
+async function saveProgress(isFinal){
+  const rid=getRID();
+  const payload=buildPayload(); payload.completed=!!isFinal;
+  const st=document.getElementById('savestatus');
+  try{
+    const sql=await getSql();
+    await sql`INSERT INTO responses (respondent_id, name, data) VALUES (${rid}, ${payload.name}, ${JSON.stringify(payload)})
+              ON CONFLICT (respondent_id) DO UPDATE SET name=EXCLUDED.name, data=EXCLUDED.data, updated_at=now()`;
+    if(isFinal && st) st.textContent='✓ Saved — thank you! You can revisit this page anytime to review or edit your answers.';
+  }catch(err){
+    console.error('save failed:', err);
+    if(isFinal && st) st.textContent='Could not reach the database — your answers are kept on this device; please tell us so we can retry.';
+  }
+}
+
+function next(){ if(i<Q.length-1) go(1); }
+function go(step){
+  captureCurrent();
+  const cur=document.querySelector('.screen'); if(cur)cur.classList.remove('in');
+  setTimeout(()=>{
+    i=Math.max(0,Math.min(Q.length-1,i+step));
+    render();
+    saveProgress(Q[i].type==='end');
+  }, 180);
+}
+document.getElementById('next').onclick=()=>go(1);
+document.getElementById('prev').onclick=()=>go(-1);
+
+document.addEventListener('keydown',e=>{
+  const q=Q[i];
+  const inField=['INPUT','TEXTAREA'].includes((document.activeElement||{}).tagName);
+  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); next(); return; }
+  if(!inField && q && q.type==='choice' && /^[a-jA-J]$/.test(e.key)){
+    const k=KEYS.indexOf(e.key.toUpperCase()); if(k<q.options.length) pick(q.id,k);
+  }
+  if(!inField && q && q.type==='multi' && /^[a-jA-J]$/.test(e.key)){
+    const k=KEYS.indexOf(e.key.toUpperCase()); if(k<q.options.length) pickMulti(q.id,k,q.max||0);
+  }
+  if(!inField && q && q.type==='yesno'){ if(e.key.toLowerCase()==='y')pick(q.id,0); if(e.key.toLowerCase()==='n')pick(q.id,1); }
+  if(!inField && q && q.type==='scale' && /^[1-9]$/.test(e.key)){ const s=+e.key; if(s<=(q.scaleMax||5))pickScale(q.id,s); }
+  if(!inField && e.key==='ArrowDown'){e.preventDefault();go(1);} if(!inField && e.key==='ArrowUp'){e.preventDefault();go(-1);}
+});
+
+// Pre-fill from this device's saved progress (if any), then re-render the
+// current screen so restored values show. Re-renders current i (never resets position).
+render();
+loadProgress().then((found)=>{ if(found) render(); });
+</script>
+</body>
+</html>
