@@ -102,11 +102,11 @@ const Q = [
    title:'Which statement best captures the purpose of the merged company?',
    help:'Pick the one closest to how you’d put it — or write your own under “Other”.',
    options:[
-     'To make fashion wholesale effortless, modern and intelligent',
-     'To help fashion brands get more out of their wholesale channel — sell more, more efficiently',
-     'To be the intelligent commercial platform European fashion brands rely on to grow',
-     'To handle the full complexity of fashion wholesale so brands can focus on product & relationships',
-     'To connect brands and retailers in one smart, AI-powered workflow'
+     'To help fashion brands sell more through their wholesale channel — more efficiently',
+     'To take the complexity out of wholesale, so brands can focus on product & relationships',
+     'To make wholesale intelligent — letting AI do the heavy lifting',
+     'To connect brands and retailers in one place — one workflow, not many tools',
+     'To be the platform European fashion relies on to grow'
    ], why:'Why? (optional)'},
   {id:'USP', group:'Purpose & positioning', n:3, type:'multi', required:true, max:4, other:true,
    title:'What genuinely sets us apart? Pick our real strengths.', help:'Pick up to four.',
@@ -126,11 +126,17 @@ const Q = [
    title:'Would you rather have 100 customers at €100K ARR, or 1,000 at €10K?',
    options:['100 × €100K (deep, fewer)','1,000 × €10K (broad, many)','A specific mix'], why:'Why? (optional)'},
   {id:'FUTURE', group:'Purpose & positioning', n:5, type:'multi', required:true, max:3, other:true,
-   title:'Which of these should define the future of wholesale we build?',
-   help:'Pick up to three.',
+   title:'Where do you think the future of wholesale is heading?',
+   help:'Pick the directions you believe in most — up to three.',
    options:[
-     'The intelligent commercial layer','Collaborative (brand ↔ retailer)','Autonomous / self-driving operations',
-     'AI-driven & intelligent','Data-connected — shared insight','Frees humans for the creative work','Effortless / low-friction'
+     'More automated — systems handle the manual work',
+     'AI-driven — smart recommendations, assortments & reordering',
+     'More collaborative — brands & retailers as partners, not transactions',
+     'Data-connected — shared, real-time performance insight',
+     'Always-on — continuous, beyond fixed seasons & market weeks',
+     'Consumer-grade — B2B buying as easy as B2C',
+     'Consolidated — one platform instead of many tools',
+     'More human — tech frees people for the creative & relationship work'
    ]},
 
   // ---- Perception (from v1) ----
@@ -160,12 +166,12 @@ const Q = [
    title:'Which visual direction should the new brand lean into?',
    help:'Pick up to two. Tap an example ↗ to see the style.',
    styles:[
-     {label:'Minimal & elegant — black, white, lots of white space', links:[{name:'Apple',url:'apple.com'}]},
-     {label:'Bold & energetic — colour, gradients, movement', links:[{name:'Wix',url:'wix.com'}]},
-     {label:'Editorial & fashion-led — looks like a fashion brand', links:[{name:'Bang & Olufsen',url:'bang-olufsen.com'}]},
-     {label:'Warm & human — approachable, friendly', links:[{name:'Anthropic',url:'anthropic.com'},{name:'Programa',url:'programa.design'},{name:'Elastic Suite',url:'elasticsuite.com'}]},
-     {label:'Dark & powerful', links:[{name:'Linear',url:'linear.app'}]},
-     {label:'Pops of neon', links:[{name:'Stripe',url:'stripe.com'},{name:'Glean',url:'glean.com'}]}
+     {label:'Minimal & elegant — mono, restrained, lots of white space', links:[{name:'Apple',url:'apple.com'}]},
+     {label:'Editorial & fashion-led — looks like a fashion brand', links:[{name:'COS',url:'cosstores.com'}]},
+     {label:'Premium & considered — refined, intelligent, quietly confident', links:[{name:'Bang & Olufsen',url:'bang-olufsen.com'},{name:'Anthropic',url:'anthropic.com'}]},
+     {label:'Warm & human — approachable, friendly, soft', links:[{name:'Notion',url:'notion.so'}]},
+     {label:'Bold & energetic — colour, gradients, movement', links:[{name:'Stripe',url:'stripe.com'}]},
+     {label:'Dark & precise — sharp, technical, powerful', links:[{name:'Linear',url:'linear.app'}]}
    ]},
   {id:'ADMIRE', group:'Look & feel', n:12, type:'longtext', required:true,
    title:'If the brand looked and felt like a fashion brand you admire, which would it be — and why?', placeholder:'Brand + why…'},
@@ -195,7 +201,7 @@ function render(){
   document.getElementById('next').disabled=(i===Q.length-1);
   let html='<div class="screen">';
   if(q.type==='welcome'){
-    html+=`<div><div class="tag">Branding questionnaire · v3</div>
+    html+=`<div><div class="tag">Branding questionnaire · v4</div>
       <div class="big">Help shape the brand<br>of the merged company.</div>
       <div class="lead">13 questions · about 8 minutes. Two parts: <i>does our positioning ring true</i>, and <i>what should the brand look &amp; feel like</i>.<br>Your answers save automatically; you can revisit this page anytime to change them.</div>
       <div class="foot"><button class="ok" onclick="go(1)">Start &nbsp;→</button><span class="enter-hint">press <b>Enter ↵</b></span></div></div>`;
