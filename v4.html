@@ -97,52 +97,36 @@ const Q = [
 
   // ---- About you ----
   {id:'NAME', group:'About you', n:1, type:'shorttext', required:true, title:'What is your first and last name?', placeholder:'Type your full name…'},
-  {id:'SIDE', group:'About you', n:2, type:'choice', required:true, title:'Which side do you come from?',
-   options:['Colect','Le New Black','Joined the merged company','Neither / external']},
-
-  // ---- Positioning & vision (validate) ----
-  {id:'TAGLINE', group:'Positioning — what fits?', n:3, type:'choice', required:true, other:true,
-   title:'Which one-line positioning feels most right for the merged company?',
-   help:'Pick the one closest to how you’d put it.',
+  // ---- Purpose & positioning (validate) ----
+  {id:'PURPOSE', group:'Purpose & positioning', n:2, type:'choice', required:true, other:true,
+   title:'Which statement best captures the purpose of the merged company?',
+   help:'Pick the one closest to how you’d put it — or write your own under “Other”.',
    options:[
-     '“Wholesale, made for fashion — built for the multi-everything reality of European brands.”',
-     '“The AI-powered wholesale platform for highly complex fashion businesses.”',
-     '“The intelligent commercial layer for European fashion.”',
-     'None of these feels right'
+     'To make fashion wholesale effortless, modern and intelligent',
+     'To help fashion brands get more out of their wholesale channel — sell more, more efficiently',
+     'To be the intelligent commercial platform European fashion brands rely on to grow',
+     'To handle the full complexity of fashion wholesale so brands can focus on product & relationships',
+     'To connect brands and retailers in one smart, AI-powered workflow'
    ], why:'Why? (optional)'},
-  {id:'POSPILLS', group:'Positioning — what fits?', n:4, type:'multi', required:true, max:4, other:true,
-   title:'Which of these best capture what Colect should be known for?', help:'Pick up to four.',
-   options:[
-     'Made for fashion — not a generic B2B platform',
-     'Built for the multi-everything reality of European fashion (multi-collection, -territory, -currency, -rights)',
-     'For fashion specialists — brands that own a category lane',
-     'The intelligent commercial layer for European fashion',
-     'Operationally deep — we handle the complexity',
-     'An alternative to costly in-house builds — enterprise depth without building it',
-     'AI-powered selling & intelligence',
-     'European roots, global reach',
-     'Brand–retailer collaboration / connected data'
-   ]},
-  {id:'USP', group:'Positioning — what fits?', n:5, type:'multi', required:true, max:4, other:true,
-   title:'Which are our real USPs — the things we’re genuinely strong at?', help:'Pick 3–4.',
+  {id:'USP', group:'Purpose & positioning', n:3, type:'multi', required:true, max:4, other:true,
+   title:'What genuinely sets us apart? Pick our real strengths.', help:'Pick up to four.',
    options:[
      'Operationally deep — advanced business logic (multi-currency, pricing, rights, territories)',
      'AI-powered selling & intelligence',
      'Fashion-native — built by fashion people, for fashion',
+     'Built for fashion specialists — brands that own a category lane',
+     'The intelligent commercial layer for European fashion',
+     'An alternative to costly in-house builds — enterprise depth without building it',
      'Customisable & co-developed with our customers',
      'White-label brand portals',
-     'Saves customers from costly in-house builds',
-     'Consumer-grade (B2C-like) UX',
      'The digital showroom & visual storytelling',
-     'End-to-end wholesale (pre-order → reorder → B2B e-com)',
-     'High-touch service & partnership'
+     'End-to-end wholesale (pre-order → reorder → B2B e-com)'
    ]},
-  {id:'ICP', group:'Positioning — what fits?', n:6, type:'choice', required:true, other:true,
+  {id:'ICP', group:'Purpose & positioning', n:4, type:'choice', required:true, other:true,
    title:'Would you rather have 100 customers at €100K ARR, or 1,000 at €10K?',
    options:['100 × €100K (deep, fewer)','1,000 × €10K (broad, many)','A specific mix'], why:'Why? (optional)'},
-  {id:'FUTURE', group:'Positioning — what fits?', n:7, type:'multi', required:true, max:3, other:true,
-   title:'Which of these define the future of wholesale we’re building?',
-   quote:'“The future of wholesale is collaborative and autonomous — the intelligent commercial layer where fashion specialists and their retailers grow, so the human work of fashion can be more human and the operational work takes care of itself.”',
+  {id:'FUTURE', group:'Purpose & positioning', n:5, type:'multi', required:true, max:3, other:true,
+   title:'Which of these should define the future of wholesale we build?',
    help:'Pick up to three.',
    options:[
      'The intelligent commercial layer','Collaborative (brand ↔ retailer)','Autonomous / self-driving operations',
@@ -150,19 +134,19 @@ const Q = [
    ]},
 
   // ---- Perception (from v1) ----
-  {id:'TODAY', group:'Perception', n:8, type:'choice', required:true, other:true,
+  {id:'TODAY', group:'Perception', n:6, type:'choice', required:true, other:true,
    title:'What does the Colect brand mean to you today?',
    options:['Enterprise / management wholesale software','A fashion-forward platform','A trusted specialist for fashion wholesale','A modern, AI-driven tool','Not much / no clear meaning yet']},
-  {id:'DESIRED', group:'Perception', n:9, type:'multi', required:true, max:3, other:true,
+  {id:'DESIRED', group:'Perception', n:7, type:'multi', required:true, max:3, other:true,
    title:'How do you want customers and prospects to perceive us?', help:'Pick up to three.',
    options:['Trustworthy & reliable','Stable & established','Innovative — the new kid on the block','Fashion-forward','Premium / high-end','Expert specialist in fashion wholesale','Easy & enjoyable to work with','Bold & category-defining','European','Global reach']},
 
   // ---- Personality, mood & voice (from v3) ----
-  {id:'AIM', group:'Personality & mood', n:10, type:'chips', required:true, max:5,
+  {id:'AIM', group:'Personality & mood', n:8, type:'chips', required:true, max:5,
    title:'Which words should the brand feel like?', help:'Pick up to five.', options:AIM},
-  {id:'AVOID', group:'Personality & mood', n:11, type:'chips', required:true, max:5,
+  {id:'AVOID', group:'Personality & mood', n:9, type:'chips', required:true, max:5,
    title:'Which must the brand NEVER be?', help:'Pick up to five.', options:AVOID},
-  {id:'VOICE', group:'Personality & mood', n:12, type:'axes', required:true,
+  {id:'VOICE', group:'Personality & mood', n:10, type:'axes', required:true,
    title:'How should the brand sound? Place us on each line.',
    axes:[
      {id:'expapp', left:'Authoritative & expert', right:'Warm & approachable'},
@@ -172,25 +156,22 @@ const Q = [
    ]},
 
   // ---- Look & feel (from v3) ----
-  {id:'BRANDS', group:'Look & feel', n:13, type:'brands', required:true, max:4, other:true,
-   title:'Which of these brands should the new Colect feel closest to?',
-   help:'Pick up to four (a mix of fashion-retail and technology aesthetics on purpose). Not sure how one looks? Tap “View site ↗” on any brand to open it in a new tab.',
-   brands:[
-     {name:'Aesop', domain:'aesop.com', desc:'Apothecary-editorial, warm, restrained'},
-     {name:'Bang & Olufsen', domain:'bang-olufsen.com', desc:'Premium, editorial, architectural / design'},
-     {name:'COS', domain:'cosstores.com', desc:'Fashion-retail minimal, architectural'},
-     {name:'Stripe', domain:'stripe.com', desc:'Clean, confident developer-tech'},
-     {name:'Linear', domain:'linear.app', desc:'Sharp, dark, precise software'},
-     {name:'Notion', domain:'notion.so', desc:'Friendly, approachable, soft tech'},
-     {name:'Apple', domain:'apple.com', desc:'Premium mass, product-hero'},
-     {name:'Patagonia', domain:'patagonia.com', desc:'Earnest, utilitarian, values-led'},
-     {name:'Anthropic', domain:'anthropic.com', desc:'Considered, warm-minimal, intelligent'}
+  {id:'VISUAL', group:'Look & feel', n:11, type:'styles', required:true, max:2, other:true,
+   title:'Which visual direction should the new brand lean into?',
+   help:'Pick up to two. Tap an example ↗ to see the style.',
+   styles:[
+     {label:'Minimal & elegant — black, white, lots of white space', links:[{name:'Apple',url:'apple.com'}]},
+     {label:'Bold & energetic — colour, gradients, movement', links:[{name:'Wix',url:'wix.com'}]},
+     {label:'Editorial & fashion-led — looks like a fashion brand', links:[{name:'Bang & Olufsen',url:'bang-olufsen.com'}]},
+     {label:'Warm & human — approachable, friendly', links:[{name:'Anthropic',url:'anthropic.com'},{name:'Programa',url:'programa.design'},{name:'Elastic Suite',url:'elasticsuite.com'}]},
+     {label:'Dark & powerful', links:[{name:'Linear',url:'linear.app'}]},
+     {label:'Pops of neon', links:[{name:'Stripe',url:'stripe.com'},{name:'Glean',url:'glean.com'}]}
    ]},
-  {id:'ADMIRE', group:'Look & feel', n:14, type:'longtext', required:true,
+  {id:'ADMIRE', group:'Look & feel', n:12, type:'longtext', required:true,
    title:'If the brand looked and felt like a fashion brand you admire, which would it be — and why?', placeholder:'Brand + why…'},
 
   // ---- Open ----
-  {id:'OPEN', group:'Open', n:15, type:'longtext', required:false,
+  {id:'OPEN', group:'Open', n:13, type:'longtext', required:false,
    title:'Anything else about how the brand should look, feel, or sound?', placeholder:'Optional…'},
 
   {type:'end'}
@@ -216,7 +197,7 @@ function render(){
   if(q.type==='welcome'){
     html+=`<div><div class="tag">Branding questionnaire · v3</div>
       <div class="big">Help shape the brand<br>of the merged company.</div>
-      <div class="lead">15 questions · about 8–10 minutes. Two parts: <i>does our positioning ring true</i>, and <i>what should the brand look &amp; feel like</i>.<br>Your answers save automatically; you can revisit this page anytime to change them.</div>
+      <div class="lead">13 questions · about 8 minutes. Two parts: <i>does our positioning ring true</i>, and <i>what should the brand look &amp; feel like</i>.<br>Your answers save automatically; you can revisit this page anytime to change them.</div>
       <div class="foot"><button class="ok" onclick="go(1)">Start &nbsp;→</button><span class="enter-hint">press <b>Enter ↵</b></span></div></div>`;
   } else if(q.type==='end'){
     html+=`<div><div class="big">That’s it — thank you. 🎉</div>
@@ -267,6 +248,11 @@ function fieldHTML(q){
     if(q.other) h+=otherField();
     return h;
   }
+  if(q.type==='styles'){
+    let h='<div class="options">'+q.styles.map((s,k)=>`<div class="opt" data-k="${k}" onclick="pickMulti('${q.id}',${k},${q.max||0})"><span class="key">${KEYS[k]}</span><span>${s.label} &nbsp;${s.links.map(l=>`<a class="blink" href="https://${l.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${l.name} ↗</a>`).join(' · ')}</span></div>`).join('')+'</div>';
+    if(q.other) h+=otherField();
+    return h;
+  }
   if(q.type==='scale'){
     const max=q.scaleMax||5; let b='';
     for(let s=1;s<=max;s++) b+=`<button class="sbtn" data-s="${s}" onclick="pickScale('${q.id}',${s})">${s}</button>`;
@@ -298,7 +284,7 @@ function wire(q){
     const setv=(id,key)=>{const el=document.getElementById(id);if(el&&state[q.id+key]!=null)el.value=state[q.id+key];};
     setv('inp','_text');setv('why','_why');setv('other','_other');setv('extra','_extra');
     if(q.type==='choice'&&typeof state[q.id]==='number')document.querySelectorAll('#stage .opt').forEach(e=>e.classList.toggle('sel',+e.dataset.k===state[q.id]));
-    if((q.type==='chips'||q.type==='brands'||q.type==='multi')&&Array.isArray(state[q.id]))document.querySelectorAll('#stage [data-k]').forEach(e=>e.classList.toggle('sel',state[q.id].includes(+e.dataset.k)));
+    if((q.type==='chips'||q.type==='brands'||q.type==='multi'||q.type==='styles')&&Array.isArray(state[q.id]))document.querySelectorAll('#stage [data-k]').forEach(e=>e.classList.toggle('sel',state[q.id].includes(+e.dataset.k)));
     if(q.type==='scale'&&state[q.id+'_scale']!=null)document.querySelectorAll('#stage .sbtn').forEach(e=>e.classList.toggle('sel',+e.dataset.s===state[q.id+'_scale']));
     if(q.type==='axes')q.axes.forEach(a=>{const v=state[q.id+'_ax_'+a.id];if(v!=null)document.querySelectorAll(`#stage .ab[data-ax="${a.id}"]`).forEach(e=>e.classList.toggle('sel',+e.dataset.s===v));});
   }
@@ -313,11 +299,12 @@ function buildPayload(){
     else if(q.type==='choice'){const k=state[q.id];e.answer=(typeof k==='number')?q.options[k]:null;if(state[q.id+'_other'])e.other=state[q.id+'_other'];if(state[q.id+'_why'])e.why=state[q.id+'_why'];}
     else if(q.type==='chips'||q.type==='multi'){const a=Array.isArray(state[q.id])?state[q.id]:[];e.answer=a.map(k=>q.options[k]);if(state[q.id+'_other'])e.other=state[q.id+'_other'];}
     else if(q.type==='brands'){const a=Array.isArray(state[q.id])?state[q.id]:[];e.answer=a.map(k=>q.brands[k].name);if(state[q.id+'_other'])e.other=state[q.id+'_other'];}
+    else if(q.type==='styles'){const a=Array.isArray(state[q.id])?state[q.id]:[];e.answer=a.map(k=>q.styles[k].label);if(state[q.id+'_other'])e.other=state[q.id+'_other'];}
     else if(q.type==='scale'){e.answer=state[q.id+'_scale']||null;if(state[q.id+'_extra'])e.note=state[q.id+'_extra'];}
     else if(q.type==='axes'){e.answer=q.axes.map(a=>({axis:a.left+' ↔ '+a.right,value:state[q.id+'_ax_'+a.id]||null}));}
     else if(q.type==='rank'){const o=state[q.id]||q.items.map((_,k)=>k);e.answer=o.map((idx,pos)=>({rank:pos+1,value:q.items[idx]}));}
     answers.push(e);});
-  return {version:'v4',name:state['NAME_text']||'',side:(typeof state['SIDE']==='number')?Q.find(q=>q.id==='SIDE').options[state['SIDE']]:null,answers,state:{...state},submitted_at:new Date().toISOString()};
+  return {version:'v4',name:state['NAME_text']||'',answers,state:{...state},submitted_at:new Date().toISOString()};
 }
 
 function getRID(){let r=null;try{r=localStorage.getItem(RID_KEY);}catch(e){}if(!r){r=(self.crypto&&crypto.randomUUID)?crypto.randomUUID():('r-'+Date.now()+'-'+Math.floor(Math.random()*1e9));try{localStorage.setItem(RID_KEY,r);}catch(e){}}return r;}
@@ -335,7 +322,7 @@ document.getElementById('prev').onclick=()=>go(-1);
 document.addEventListener('keydown',e=>{const q=Q[i];const inField=['INPUT','TEXTAREA'].includes((document.activeElement||{}).tagName);
   if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();next();return;}
   if(!inField&&q&&q.type==='choice'&&/^[a-zA-Z]$/.test(e.key)){const k=KEYS.indexOf(e.key.toUpperCase());if(k<q.options.length)pick(q.id,k);}
-  if(!inField&&q&&(q.type==='chips'||q.type==='brands'||q.type==='multi')&&/^[a-zA-Z]$/.test(e.key)){const k=KEYS.indexOf(e.key.toUpperCase());const len=(q.options||q.brands).length;if(k<len)pickMulti(q.id,k,q.max||0);}
+  if(!inField&&q&&(q.type==='chips'||q.type==='brands'||q.type==='multi'||q.type==='styles')&&/^[a-zA-Z]$/.test(e.key)){const k=KEYS.indexOf(e.key.toUpperCase());const len=(q.options||q.brands||q.styles).length;if(k<len)pickMulti(q.id,k,q.max||0);}
   if(!inField&&q&&q.type==='scale'&&/^[1-9]$/.test(e.key)){const s=+e.key;if(s<=(q.scaleMax||5))pickScale(q.id,s);}
   if(!inField&&e.key==='ArrowDown'){e.preventDefault();go(1);}if(!inField&&e.key==='ArrowUp'){e.preventDefault();go(-1);}
 });
