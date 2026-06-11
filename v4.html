@@ -162,16 +162,17 @@ const Q = [
    ]},
 
   // ---- Look & feel (from v3) ----
-  {id:'VISUAL', group:'Look & feel', n:11, type:'styles', required:true, max:2, other:true,
+  {id:'VISUAL', group:'Look & feel', n:11, type:'brands', required:true, max:3, other:true,
    title:'Which visual direction should the new brand lean into?',
-   help:'Pick up to two. Tap an example ↗ to see the style.',
-   styles:[
-     {label:'Minimal & elegant — mono, restrained, lots of white space', links:[{name:'Apple',url:'apple.com'}]},
-     {label:'Editorial & fashion-led — looks like a fashion brand', links:[{name:'COS',url:'cosstores.com'}]},
-     {label:'Premium & considered — refined, intelligent, quietly confident', links:[{name:'Bang & Olufsen',url:'bang-olufsen.com'},{name:'Anthropic',url:'anthropic.com'}]},
-     {label:'Warm & human — approachable, friendly, soft', links:[{name:'Notion',url:'notion.so'}]},
-     {label:'Bold & energetic — colour, gradients, movement', links:[{name:'Stripe',url:'stripe.com'}]},
-     {label:'Dark & precise — sharp, technical, powerful', links:[{name:'Linear',url:'linear.app'}]}
+   help:'Each option is a brand that captures a direction. Pick up to three — tap “View site ↗” to look.',
+   brands:[
+     {name:'COS', domain:'cosstores.com', desc:'Fashion-retail minimal, architectural · Minimal & assured'},
+     {name:'Bang & Olufsen', domain:'bang-olufsen.com', desc:'Premium, precise, crafted · Premium tech-craft'},
+     {name:'Loewe', domain:'loewe.com', desc:'Editorial, image-led, fashion-house · Editorial & fashion-led'},
+     {name:'Aesop', domain:'aesop.com', desc:'Warm, restrained, apothecary-premium · Warm (premium side)'},
+     {name:'Notion', domain:'notion.so', desc:'Friendly, approachable, soft tech · Warm & human'},
+     {name:'Linear', domain:'linear.app', desc:'Sharp, dark, technical precision · Dark & precise'},
+     {name:'Stripe', domain:'stripe.com', desc:'Vivid gradients, polished, future-facing · Electric & AI-first'}
    ]},
   {id:'ADMIRE', group:'Look & feel', n:12, type:'longtext', required:true,
    title:'If the brand looked and felt like a fashion brand you admire, which would it be — and why?', placeholder:'Brand + why…'},
