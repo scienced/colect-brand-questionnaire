@@ -115,16 +115,16 @@ const Q = [
      'AI-powered selling & intelligence',
      'Fashion-native — built by fashion people, for fashion',
      'Built for fashion specialists — brands that own a category lane',
-     'The intelligent commercial layer for European fashion',
      'An alternative to costly in-house builds — enterprise depth without building it',
      'Customisable & co-developed with our customers',
      'White-label brand portals',
      'The digital showroom & visual storytelling',
      'End-to-end wholesale (pre-order → reorder → B2B e-com)'
    ]},
-  {id:'ICP', group:'Purpose & positioning', n:4, type:'choice', required:true, other:true,
+  {id:'ICP', group:'Purpose & positioning', n:4, type:'choice', required:false, other:true,
    title:'Would you rather have 100 customers at €100K ARR, or 1,000 at €10K?',
-   options:['100 × €100K (deep, fewer)','1,000 × €10K (broad, many)','A specific mix'], why:'Why? (optional)'},
+   help:'Optional — skip if you don’t have a view. (ARR = yearly revenue per customer.)',
+   options:['100 × €100K (deep, fewer)','1,000 × €10K (broad, many)','A specific mix','No strong view'], why:'Why? (optional)'},
   {id:'FUTURE', group:'Purpose & positioning', n:5, type:'multi', required:true, max:3, other:true,
    title:'Where do you think the future of wholesale is heading?',
    help:'Pick the directions you believe in most — up to three.',
@@ -174,8 +174,9 @@ const Q = [
      {name:'Linear', domain:'linear.app', desc:'Sharp, dark, technical precision · Dark & precise'},
      {name:'Stripe', domain:'stripe.com', desc:'Vivid gradients, polished, future-facing · Electric & AI-first'}
    ]},
-  {id:'ADMIRE', group:'Look & feel', n:12, type:'longtext', required:true,
-   title:'If the brand looked and felt like a fashion brand you admire, which would it be — and why?', placeholder:'Brand + why…'},
+  {id:'ADMIRE', group:'Look & feel', n:12, type:'longtext', required:false,
+   title:'If the brand looked and felt like a fashion brand you admire, which would it be — and why?',
+   help:'Optional — only if a brand comes to mind.', placeholder:'Brand + why…'},
 
   // ---- Open ----
   {id:'OPEN', group:'Open', n:13, type:'longtext', required:false,
@@ -204,7 +205,7 @@ function render(){
   if(q.type==='welcome'){
     html+=`<div><div class="tag">Branding questionnaire · v4</div>
       <div class="big">Help shape the brand<br>of the merged company.</div>
-      <div class="lead">13 questions · about 8 minutes. Two parts: <i>does our positioning ring true</i>, and <i>what should the brand look &amp; feel like</i>.<br>Your answers save automatically; you can revisit this page anytime to change them.</div>
+      <div class="lead">13 questions · about 8 minutes. Two parts: <i>does our positioning ring true</i>, and <i>what should the brand look &amp; feel like</i>.<br>There are no wrong answers — and feel free to skip anything that isn’t your area. Your answers save automatically; revisit anytime to change them.</div>
       <div class="foot"><button class="ok" onclick="go(1)">Start &nbsp;→</button><span class="enter-hint">press <b>Enter ↵</b></span></div></div>`;
   } else if(q.type==='end'){
     html+=`<div><div class="big">That’s it — thank you. 🎉</div>
